@@ -10,9 +10,9 @@ const generoEjemplo = 'RPG';
 const nombreJuegoEjemplo = "GoD Of WAr";
 
 //se recomienda 2 juegos para cada consola
-recomendar2JegosPorConsola(ps2);
-recomendar2JegosPorConsola(gba);
-recomendar2JegosPorConsola(n64);
+recomendar2JuegosPorConsola(ps2);
+recomendar2JuegosPorConsola(gba);
+recomendar2JuegosPorConsola(n64);
 
 //se recomienda 3 juegos por genero
 recomendar3JuegosPorGenero(generoEjemplo);
@@ -27,7 +27,7 @@ buscarJuegoPorNombre(nombreJuegoEjemplo);
 listadoJuegosPorGenero(generoEjemplo);
 
 //esta funcion recibe la consola de la cual mostrará recomendaciones
-function recomendar2JegosPorConsola(consola) {
+function recomendar2JuegosPorConsola(consola) {
   if (consola == 'GBA') {
     recomendarNumeroDeElementosDeLista(2, videoGames.GBA)
   } else if (consola == 'PS2'){
@@ -90,14 +90,14 @@ function recomendarJuegoPorConsolaYGenero(consola, genero) {
 
 //devuelve lista de todos los juegos
 function listaTodosLosJuegos() {
-  let lista = [].concat(videoGames.GBA, videoGames.N64, videoGames.PS2);
-  return lista;
+  const listaJuegos = [].concat(videoGames.GBA, videoGames.N64, videoGames.PS2);
+  return listaJuegos;
 }
 
 //funcion que busca el juego por el nombre y muestra si existe o no
 function buscarJuegoPorNombre(nombre) {
   const todosLosJuegos = listaTodosLosJuegos();
-  let coincidencia = todosLosJuegos.find(j => j.name.toLowerCase() == nombre.toLowerCase());
+  const coincidencia = todosLosJuegos.find(j => j.name.toLowerCase() == nombre.toLowerCase());
   if (coincidencia) {
     console.log(coincidencia.video_console, "-", coincidencia.genres)
   }else{
