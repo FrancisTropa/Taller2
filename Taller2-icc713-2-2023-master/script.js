@@ -20,7 +20,11 @@ recomendar3JuegosPorGenero(generoEjemplo);
 //se recomienda un juego por consola y genero
 recomendarJuegoPorConsolaYGenero(gba, generoEjemplo);
 
+//busca el juego por el nombre, da igual la forma en que se escriba, solo el nombre debe coincidir
 buscarJuegoPorNombre(nombreJuegoEjemplo);
+
+//busca todos los juegos de un genero y le agrega un paramero boolean que es verdadero si tiene más de un genero o falso en el caso contrario
+listadoJuegosPorGenero(generoEjemplo);
 
 //esta funcion recibe la consola de la cual mostrará recomendaciones
 function recomendar2JegosPorConsola(consola) {
@@ -99,4 +103,18 @@ function buscarJuegoPorNombre(nombre) {
   }else{
     console.log("Juego no encontrado en nuestra base de datos");
   }
+}
+
+//Obtener el listado de juegos por genero
+function listadoJuegosPorGenero(genero) {
+  const todosLosJuegos = listaTodosLosJuegos();
+  let juegosMismoGenero = todosLosJuegos.filter(j => j.genres.includes(genero));
+  juegosMismoGenero.forEach(j => {
+    if (j.genres.length>1) {
+      j.isMultiGenre = true;
+    }else{
+      j.isMultiGenre = false;
+    }
+  });
+  console.log(juegosMismoGenero);
 }
