@@ -7,6 +7,7 @@ const ps2 = 'PS2';
 const gba = 'GBA';
 const n64 = 'N64';
 const generoEjemplo = 'RPG';
+const nombreJuegoEjemplo = "GoD Of WAr";
 
 //se recomienda 2 juegos para cada consola
 recomendar2JegosPorConsola(ps2);
@@ -18,6 +19,8 @@ recomendar3JuegosPorGenero(generoEjemplo);
 
 //se recomienda un juego por consola y genero
 recomendarJuegoPorConsolaYGenero(gba, generoEjemplo);
+
+buscarJuegoPorNombre(nombreJuegoEjemplo);
 
 //esta funcion recibe la consola de la cual mostrará recomendaciones
 function recomendar2JegosPorConsola(consola) {
@@ -55,17 +58,17 @@ function recomendar3JuegosPorGenero(genero) {
 //esta funcion recorre cada array agregando a una lista los juegos que tengan el mismo genero y luego devuelve esta lista
 function entregarListaJuegosMismoGenero(genero) {
   let listaJuegosMismoGenero = [];
-  videoGames.GBA.filter(j => {
+  videoGames.GBA.forEach(j => {
     if (j.genres.includes(genero)) {
       listaJuegosMismoGenero.push(j);
     }
   })
-  videoGames.PS2.filter(j => {
+  videoGames.PS2.forEach(j => {
     if (j.genres.includes(genero)) {
       listaJuegosMismoGenero.push(j);
     }
   })
-  videoGames.N64.filter(j => {
+  videoGames.N64.forEach(j => {
     if (j.genres.includes(genero)) {
       listaJuegosMismoGenero.push(j);
     }
@@ -75,8 +78,25 @@ function entregarListaJuegosMismoGenero(genero) {
 
 //recomienda un juego que coincida con la consola y tenga el mismo genero
 function recomendarJuegoPorConsolaYGenero(consola, genero) {
-  const listaTodosLosJuegos = [].concat(videoGames.GBA, videoGames.N64, videoGames.PS2);
-  const listaJuegosCoinciden = listaTodosLosJuegos.filter(j => j.genres.includes(genero) && j.video_console == consola);
+  const todosLosJuegos = listaTodosLosJuegos();
+  const listaJuegosCoinciden = todosLosJuegos.filter(j => j.genres.includes(genero) && j.video_console == consola);
   const juegoRecomendado = listaJuegosCoinciden[generarNumeroAleatorioEntre0YNumero(listaJuegosCoinciden.length)]
   console.log("- ", juegoRecomendado.name, "-", juegoRecomendado.genres, "-", juegoRecomendado.video_console)
+}
+
+//devuelve lista de todos los juegos
+function listaTodosLosJuegos() {
+  let lista = [].concat(videoGames.GBA, videoGames.N64, videoGames.PS2);
+  return lista;
+}
+
+//funcion que busca el juego por el nombre y muestra si existe o no
+function buscarJuegoPorNombre(nombre) {
+  const todosLosJuegos = listaTodosLosJuegos();
+  let coincidencia = todosLosJuegos.find(j => j.name.toLowerCase() == nombre.toLowerCase());
+  if (coincidencia) {
+    console.log(coincidencia.video_console, "-", coincidencia.genres)
+  }else{
+    console.log("Juego no encontrado en nuestra base de datos");
+  }
 }
